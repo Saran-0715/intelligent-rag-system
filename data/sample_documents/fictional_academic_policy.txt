@@ -1,0 +1,88 @@
+FICTIONAL SAMPLE DOCUMENT — FOR TESTING ONLY
+This document is entirely made up and does not represent any real institution's policies.
+=======================================================================================
+
+GREENWOOD UNIVERSITY — STUDENT ACADEMIC POLICY HANDBOOK (FICTIONAL)
+Version 2024-01
+
+SECTION 1: ATTENDANCE POLICY
+
+1.1 Minimum Attendance Requirement
+Students must maintain a minimum attendance of 75% in all courses.
+Attendance below 75% will result in the student being debarred from sitting
+for the final examination in that course.
+
+1.2 Medical Leave
+Medical leave requires a medical certificate from a registered practitioner
+submitted within 3 working days of return. Medically approved absences up to
+10% of total classes may be granted on a case-by-case basis.
+
+1.3 Attendance Recording
+Attendance is recorded by faculty at the beginning of each class session.
+Students arriving more than 15 minutes late will be marked absent.
+
+SECTION 2: EXAMINATION RULES
+
+2.1 Eligibility
+To be eligible for final examinations, a student must:
+(a) Maintain 75% or above attendance
+(b) Have no outstanding library dues
+(c) Have submitted all required assignments
+
+2.2 Examination Conduct
+Mobile phones and electronic devices are strictly prohibited inside examination halls.
+Possession of unauthorized materials during examinations is treated as malpractice.
+
+2.3 Malpractice Consequences
+Students found committing malpractice during examinations will:
+(a) Receive a zero in that paper
+(b) Be subject to a disciplinary committee hearing
+(c) Potentially face suspension for one semester on first offense
+(d) Potentially face expulsion on repeat offense
+
+SECTION 3: GRADING SYSTEM
+
+3.1 Grading Scale
+S Grade: 90-100 marks (Outstanding)
+A Grade: 80-89 marks (Excellent)
+B Grade: 70-79 marks (Very Good)
+C Grade: 60-69 marks (Good)
+D Grade: 50-59 marks (Average — Minimum passing grade)
+F Grade: Below 50 marks (Fail — Must re-appear)
+
+3.2 Grade Point Calculation
+GPA is calculated on a 10-point scale.
+S grade = 10 points, A = 9, B = 8, C = 7, D = 6, F = 0.
+
+3.3 Re-examination
+Students who fail (F grade) may re-appear in the supplementary examination
+held within 30 days of the original result declaration.
+
+SECTION 4: DISCIPLINARY POLICY
+
+4.1 Academic Misconduct
+Academic misconduct includes plagiarism, fabrication of data, unauthorized
+collaboration, and misrepresentation of credentials.
+
+4.2 Plagiarism
+Plagiarism is defined as the use of another person's work, ideas, or words
+without proper attribution. Assignments flagged for >30% similarity using
+plagiarism detection tools will be investigated.
+
+4.3 Consequences
+First offense: Written warning and zero marks for the assignment.
+Second offense: Suspension for one month.
+Third offense: Expulsion from the institution.
+
+SECTION 5: FEE POLICY
+
+5.1 Fee Payment Deadlines
+All semester fees must be paid before the last date specified in the academic calendar.
+Late payments attract a fine of Rs. 50 per day for the first 15 days.
+
+5.2 Fee Defaulters
+Students with fee arrears exceeding one semester will not be permitted to
+attend classes or access university facilities until dues are cleared.
+
+=======================================================================================
+END OF DOCUMENT — FICTIONAL SAMPLE FOR TESTING

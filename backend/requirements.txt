@@ -1,0 +1,43 @@
+# ============================================================
+# Intelligent RAG System — Backend Dependencies
+# Phase 1 MVP
+# ============================================================
+# Compatible with Python 3.12 (recommended) or 3.11
+# Install: pip install -r requirements.txt
+
+# --- Web Framework ---
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.12
+
+# --- Data Validation ---
+pydantic==2.10.1
+pydantic-settings==2.6.1
+
+# --- Document Processing ---
+pymupdf==1.24.14          # PDF extraction (import as fitz)
+
+# --- AI / Embeddings ---
+sentence-transformers==3.3.0
+# Note: pulls in torch - this is a large install (~2GB), be patient
+
+# --- Vector Database ---
+chromadb==0.5.20
+
+# --- LLM API ---
+groq==0.11.0              # Groq API client (fast, free tier available)
+httpx==0.28.0             # HTTP client (also used internally by groq)
+
+# --- Database ---
+sqlalchemy==2.0.36
+aiosqlite==0.20.0         # Async SQLite driver
+
+# --- Utilities ---
+python-dotenv==1.0.1
+tenacity==9.0.0           # Retry logic for API calls
+structlog==24.4.0         # Structured logging
+
+# --- Testing ---
+pytest==8.3.3
+pytest-asyncio==0.24.0
+httpx                     # Already listed above, used for test client
