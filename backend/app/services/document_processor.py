@@ -21,7 +21,7 @@ Phase 2 will add semantic/sentence-aware chunking.
 import uuid
 from pathlib import Path
 
-import fitz  # PyMuPDF
+import pymupdf as fitz  # PyMuPDF
 
 from app.core.config import get_settings
 from app.core.logging import get_logger

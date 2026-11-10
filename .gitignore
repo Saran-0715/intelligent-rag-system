@@ -24,10 +24,16 @@ env/
 *.env.local
 *.key
 
-# --- Uploaded Files (may contain private documents) ---
+# --- Uploaded Files & Local Databases (never commit) ---
 data/uploads/
 data/chroma_db/
 data/rag_system.db
+backend/data/
+**/chroma_db/
+**/uploads/
+*.db
+*.sqlite
+*.sqlite3
 
 # --- Frontend ---
 frontend/node_modules/

@@ -199,19 +199,11 @@ class TestConfig:
 # API Integration Tests
 # =============================================================================
 
-@pytest.fixture
-def test_client():
-    """
-    Create a synchronous test client for the FastAPI app.
-    
-    WHY AsyncClient isn't used here:
-    For simple Phase 1 tests, the synchronous TestClient is easier to use.
-    It internally runs the async app synchronously using anyio.
-    """
-    import asyncio
-    from httpx import AsyncClient, ASGITransport
-    # We use the actual app but with a test database
-    return None  # Placeholder — full async test setup shown below
+@pytest.fixture(autouse=True)
+async def setup_test_db():
+    """Ensure database tables are initialized before tests run."""
+    from app.core.database import init_db
+    await init_db()
 
 
 @pytest.mark.asyncio
@@ -329,3 +321,84 @@ async def test_upload_empty_file():
         )
     
     assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_end_to_end_rag_workflow():
+    """
+    Complete end-to-end test of Phase 1 MVP:
+    1. Upload document (TXT)
+    2. Background processing chunks and embeds it into Chroma
+    3. Verify document status is 'ready' with chunks
+    4. Query using natural language
+    5. Verify retrieved source references contain correct evidence
+    6. Verify system dashboard stats reflect the new data
+    7. Clean up by deleting the document and its vector embeddings
+    """
+    import io
+    from httpx import AsyncClient, ASGITransport
+    from app.main import app
+
+    sample_policy = (
+        "GREENWOOD UNIVERSITY ATTENDANCE POLICY\n"
+        "Section 1: Minimum Attendance Requirement.\n"
+        "Students must maintain a minimum attendance of 75% in all courses.\n"
+        "Attendance below 75% will result in the student being debarred from exams.\n"
+        "Section 2: Examination Rules.\n"
+        "Mobile phones are strictly prohibited in the exam hall.\n"
+    )
+
+    async with AsyncClient(
+        transport=ASGITransport(app=app),
+        base_url="http://test"
+    ) as client:
+        # 1. Upload
+        upload_resp = await client.post(
+            "/api/v1/documents/upload",
+            files={"file": ("test_policy.txt", io.BytesIO(sample_policy.encode("utf-8")), "text/plain")},
+        )
+        assert upload_resp.status_code == 202
+        upload_data = upload_resp.json()
+        doc_id = upload_data["id"]
+        assert doc_id is not None
+
+        # 2. Check document is processed and ready
+        doc_resp = await client.get(f"/api/v1/documents/{doc_id}")
+        assert doc_resp.status_code == 200
+        doc_data = doc_resp.json()
+        assert doc_data["status"] == "ready"
+        assert doc_data["chunk_count"] > 0
+
+        # 3. Query the RAG system
+        query_resp = await client.post(
+            "/api/v1/query",
+            json={"question": "What is the minimum attendance requirement?"},
+        )
+        assert query_resp.status_code == 200
+        query_data = query_resp.json()
+        assert "answer" in query_data
+        assert len(query_data["sources"]) > 0
+        
+        # Verify retrieved evidence matches
+        top_source = query_data["sources"][0]
+        assert "75%" in top_source["passage"]
+        assert top_source["filename"] == "test_policy.txt"
+        assert top_source["relevance_score"] is not None
+
+        # 4. Check dashboard reflects the document
+        dash_resp = await client.get("/api/v1/system/dashboard")
+        assert dash_resp.status_code == 200
+        dash_data = dash_resp.json()
+        assert dash_data["total_documents"] >= 1
+        assert dash_data["total_chunks"] >= 1
+        assert dash_data["total_queries"] >= 1
+
+        # 5. Delete document and verify clean deletion
+        del_resp = await client.delete(f"/api/v1/documents/{doc_id}")
+        assert del_resp.status_code == 200
+        del_data = del_resp.json()
+        assert del_data["vectors_removed"] >= 1
+
+        # 6. Verify document is gone
+        verify_resp = await client.get(f"/api/v1/documents/{doc_id}")
+        assert verify_resp.status_code == 404

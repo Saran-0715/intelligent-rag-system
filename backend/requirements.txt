@@ -29,8 +29,9 @@ groq==0.11.0              # Groq API client (fast, free tier available)
 httpx==0.28.0             # HTTP client (also used internally by groq)
 
 # --- Database ---
-sqlalchemy==2.0.36
-aiosqlite==0.20.0         # Async SQLite driver
+sqlalchemy>=2.0.36
+aiosqlite>=0.20.0         # Async SQLite driver
+greenlet>=3.0.0           # Required for SQLAlchemy async engine
 
 # --- Utilities ---
 python-dotenv==1.0.1

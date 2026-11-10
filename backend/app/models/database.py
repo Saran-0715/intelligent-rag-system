@@ -13,7 +13,12 @@ SQLite is a file-based database with zero setup — perfect for development.
 The same SQLAlchemy models work with PostgreSQL later (Phase 5).
 """
 
-from datetime import datetime
+from datetime import datetime, timezone
+
+
+def utc_now() -> datetime:
+    """Return current UTC datetime (timezone-aware)."""
+    return datetime.now(timezone.utc)
 from sqlalchemy import (
     Column, String, Integer, Float, DateTime, Boolean, Text, ForeignKey
 )
@@ -55,11 +60,11 @@ class Document(Base):
     # Optional user-provided description
     description = Column(Text, nullable=True)
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
     updated_at = Column(
         DateTime,
-        default=datetime.utcnow,
-        onupdate=datetime.utcnow,
+        default=utc_now,
+        onupdate=utc_now,
         nullable=False
     )
 
@@ -102,7 +107,7 @@ class DocumentChunk(Base):
     # Whether this chunk is indexed in the vector store
     is_indexed = Column(Boolean, default=False, nullable=False)
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
 
     # Back-reference to parent document
     document = relationship("Document", back_populates="chunks")
@@ -139,4 +144,4 @@ class QueryLog(Base):
     # Estimated token count (for cost tracking)
     tokens_used = Column(Integer, nullable=True)
 
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=utc_now, nullable=False)
